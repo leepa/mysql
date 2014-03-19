@@ -75,7 +75,9 @@ IF(UNIX)
   MYSQL_ADD_EXECUTABLE(resolve_stack_dump resolve_stack_dump.c)
   TARGET_LINK_LIBRARIES(resolve_stack_dump mysys)
 
+IF(FALSE)
   MYSQL_ADD_EXECUTABLE(mysql_waitpid mysql_waitpid.c)
   TARGET_LINK_LIBRARIES(mysql_waitpid mysys)
+ENDIF()
 ENDIF()
 

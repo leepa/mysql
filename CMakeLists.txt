@@ -385,7 +385,6 @@ ENDIF()
 
 ADD_SUBDIRECTORY(extra)
 IF(NOT WITHOUT_SERVER)
-  ADD_SUBDIRECTORY(tests)
   ADD_SUBDIRECTORY(client)
   ADD_SUBDIRECTORY(sql)
   ADD_SUBDIRECTORY(sql/share)
@@ -393,14 +392,10 @@ IF(NOT WITHOUT_SERVER)
   OPTION (WITH_EMBEDDED_SERVER "Compile MySQL with embedded server" OFF)
   IF(WITH_EMBEDDED_SERVER) 
    ADD_SUBDIRECTORY(libmysqld)
-   ADD_SUBDIRECTORY(libmysqld/examples)
   ENDIF(WITH_EMBEDDED_SERVER)
 
-  ADD_SUBDIRECTORY(mysql-test)
-  ADD_SUBDIRECTORY(mysql-test/lib/My/SafeProcess)
   ADD_SUBDIRECTORY(support-files)
   ADD_SUBDIRECTORY(scripts)
-  ADD_SUBDIRECTORY(sql-bench)
   IF(UNIX)
     ADD_SUBDIRECTORY(man)
   ENDIF()
@@ -444,8 +439,10 @@ IF(WIN32)
 ELSE()
   SET(CPACK_GENERATOR "TGZ")
 ENDIF() 
+IF(FALSE)
 ADD_SUBDIRECTORY(packaging/WiX)
 ADD_SUBDIRECTORY(packaging/solaris)
+ENDIF() 
 
 # Create a single package with "make package"
 # (see http://public.kitware.com/Bug/view.php?id=11452)
@@ -457,6 +454,7 @@ ENDIF()
 #
 # RPM installs documentation directly from the source tree
 #
+IF(FALSE)
 IF(NOT INSTALL_LAYOUT MATCHES "RPM")
   INSTALL(FILES COPYING LICENSE.mysql 
   DESTINATION ${INSTALL_DOCREADMEDIR} 
@@ -482,6 +480,7 @@ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
     PATTERN "mysql.info" EXCLUDE
     PATTERN "sp-imp-spec.txt" EXCLUDE
   )
+ENDIF()
 ENDIF()
 
 INCLUDE(CPack)

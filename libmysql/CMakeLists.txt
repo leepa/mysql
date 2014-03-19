@@ -165,7 +165,7 @@ ENDIF()
 
 # Merge several convenience libraries into one big mysqlclient
 # and link them together into shared library.
-MERGE_LIBRARIES(mysqlclient STATIC ${LIBS} COMPONENT Development)
+MERGE_LIBRARIES(mysqlclient STATIC ${LIBS} COMPONENT Development NOINSTALL)
 
 # Visual Studio users need debug  static library for debug projects
 INSTALL_DEBUG_SYMBOLS(clientlib)
@@ -174,6 +174,7 @@ IF(MSVC)
  INSTALL_DEBUG_TARGET(clientlib DESTINATION ${INSTALL_LIBDIR}/debug)
 ENDIF()
 
+IF(FALSE)
 IF(UNIX)
   MACRO(GET_VERSIONED_LIBNAME LIBNAME EXTENSION VERSION OUTNAME)
     SET(DOT_VERSION ".${VERSION}")
@@ -188,9 +189,11 @@ IF(UNIX)
   ENDMACRO()
   INSTALL_SYMLINK(${CMAKE_STATIC_LIBRARY_PREFIX}mysqlclient_r.a mysqlclient ${INSTALL_LIBDIR} Development)
 ENDIF()
+ENDIF()
 
 IF(NOT DISABLE_SHARED)
-  MERGE_LIBRARIES(libmysql SHARED ${LIBS} EXPORTS ${CLIENT_API_FUNCTIONS} COMPONENT SharedLibraries)
+  MERGE_LIBRARIES(libmysql SHARED ${LIBS} EXPORTS ${CLIENT_API_FUNCTIONS} COMPONENT SharedLibraries NOINSTALL)
+IF(FALSE)
   IF(UNIX)
     # libtool compatability
     IF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR APPLE)
@@ -237,4 +240,5 @@ IF(NOT DISABLE_SHARED)
       INSTALL_SYMLINK(${linkname} libmysql ${INSTALL_LIBDIR} SharedLibraries)
     ENDFOREACH()
   ENDIF()
+ENDIF()
 ENDIF()

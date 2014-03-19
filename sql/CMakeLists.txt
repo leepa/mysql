@@ -271,6 +271,7 @@ ADD_CUSTOM_TARGET(distclean
 
 IF(INSTALL_LAYOUT STREQUAL "STANDALONE")
 
+IF(FALSE)
 # Copy db.opt into data/test/
 SET(DBOPT_FILE ${CMAKE_CURRENT_SOURCE_DIR}/db.opt ) 
 INSTALL(FILES ${DBOPT_FILE} DESTINATION data/test COMPONENT DataFiles)
@@ -309,6 +310,7 @@ IF(WIN32 AND MYSQLD_EXECUTABLE)
 ELSE()
   # Not windows or cross compiling, just install an empty directory
   INSTALL(FILES ${DUMMY_FILE} DESTINATION data/mysql COMPONENT DataFiles)
+ENDIF()
 ENDIF()
 ENDIF()
 

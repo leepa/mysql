@@ -41,7 +41,7 @@ static pid_t thread_id;
 */
 
 static void
-timer_notify_function(sigval_t sigev_value)
+timer_notify_function(union sigval sigev_value)
 {
   my_timer_t *timer= sigev_value.sival_ptr;
   timer->notify_function(timer);
@@ -68,7 +68,7 @@ timer_notify_thread(void *arg)
   sigaddset(&set, MY_TIMER_KILL_SIGNO);
 
   /* Get the thread ID of the current thread. */
-  thread_id= (pid_t) syscall(SYS_gettid);
+  thread_id= (pid_t)pthread_self();
 
   /* Wake up parent thread, thread_id is available. */
   pthread_barrier_wait(barrier);
